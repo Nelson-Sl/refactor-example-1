@@ -1,14 +1,10 @@
 const plays = require('./plays.json');
 const invoices = require('./invoices.json');
 
-console.log(plays);
-console.log(invoices.customer);
-
 function printInvoice(invoice, plays) {
     let totalAmount = 0;
     let volumeCredits = 0;
     let result = `Statement for ${invoice.customer}\n`;
-    console.log(result);
     const format = Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
