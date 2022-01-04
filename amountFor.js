@@ -1,7 +1,7 @@
-const amountFor = (play, perf) => {
+const amountFor = (aPerformance, perf) => {
     let result = 0;
 
-    switch (play.type) {
+    switch (aPerformance.type) {
         case "tragedy":
             result = 40000;
             if (perf.audience > 30) {
@@ -16,7 +16,7 @@ const amountFor = (play, perf) => {
             }
             break;
         default:
-            throw new Error(`unknown type: ${play.type}`)
+            throw new Error(`unknown type: ${aPerformance.type}`)
     }
 
     return result;
