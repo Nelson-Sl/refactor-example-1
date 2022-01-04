@@ -1,5 +1,6 @@
 const plays = require('./plays.json');
 const invoices = require('./invoices.json');
+const amountFor = require('./amountFor');
 
 function printInvoice(invoice, plays) {
     let totalAmount = 0;
@@ -14,25 +15,7 @@ function printInvoice(invoice, plays) {
 
     for (let perf of invoice.performances) {
         const play = plays[perf.playID];
-        let thisAmount = 0;
-
-        switch (play.type) {
-            case "tragedy":
-                thisAmount = 40000;
-                if (perf.audience > 30) {
-                    thisAmount += 1000 * (perf.audience - 30);
-                }
-                break;
-
-            case "comedy":
-                thisAmount = 30000;
-                if (perf.audience > 20) {
-                    thisAmount += 10000 + 500 * (perf.audience - 20);
-                }
-                break;
-            default:
-                throw new Error(`unknown type: ${play.type}`)
-        }
+        let thisAmount = amountFor(play, perf);
 
         //add volume credits
         volumeCredits += Math.max(perf.audience - 30, 0);
