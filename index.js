@@ -1,25 +1,25 @@
 const plays = require('./plays.json');
 const invoices = require('./invoices.json');
 
-const amountFor = (aPerformance, perf) => {
+const amountFor = (aPerformance) => {
     let result = 0;
 
-    switch (aPerformance.type) {
+    switch (playFor(aPerformance).type) {
         case "tragedy":
             result = 40000;
-            if (perf.audience > 30) {
-                result += 1000 * (perf.audience - 30);
+            if (aPerformance.audience > 30) {
+                result += 1000 * (aPerformance.audience - 30);
             }
             break;
 
         case "comedy":
             result = 30000;
-            if (perf.audience > 20) {
-                result += 10000 + 500 * (perf.audience - 20);
+            if (aPerformance.audience > 20) {
+                result += 10000 + 500 * (aPerformance.audience - 20);
             }
             break;
         default:
-            throw new Error(`unknown type: ${aPerformance.type}`)
+            throw new Error(`unknown type: ${playFor(aPerformance).type}`)
     }
 
     return result;
