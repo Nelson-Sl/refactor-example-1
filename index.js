@@ -1,6 +1,10 @@
 const plays = require('./plays.json');
 const invoices = require('./invoices.json');
 
+const playFor = (aPerformance) => {
+    return plays[aPerformance.playID];
+}
+
 const amountFor = (aPerformance) => {
     let result = 0;
 
@@ -25,8 +29,15 @@ const amountFor = (aPerformance) => {
     return result;
 }
 
-const playFor = (aPerformance) => {
-    return plays[aPerformance.playID];
+const volumeCreditsFor = (aPerformance) => {
+    let result = 0;
+    //add volume credits
+    result += Math.max(aPerformance.audience - 30, 0);
+    //add extra credit for every ten comedy attendees
+    if ('comedy' === playFor(aPerformance).type) {
+        result += Math.floor(aPerformance.audience / 5);
+    }
+    return result;
 }
 
 function printInvoice(invoice, plays) {
@@ -41,14 +52,8 @@ function printInvoice(invoice, plays) {
 
 
     for (let perf of invoice.performances) {
-        //add volume credits
-        volumeCredits += Math.max(perf.audience - 30, 0);
-        //add extra credit for every ten comedy attendees
-        if (playFor(perf).type === 'comedy') {
-            volumeCredits += Math.floor(perf.audience / 5);
-        }
-
-        // print line for this order
+        volumeCredits += volumeCreditsFor(perf);
+        // print line for each performance order
         result += ` ${playFor(perf).name}: ${format(amountFor(perf) / 100)} (#${perf.audience} seats)\n`;
         totalAmount += amountFor(perf);
     }
