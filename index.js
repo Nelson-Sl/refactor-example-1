@@ -64,7 +64,7 @@ const totalAmount = () => {
     return result;
 }
 
-function printInvoice(invoice, plays) {
+const renderPlainText = (invoice, plays) => {
     let result = `Statement for ${invoice.customer}\n`;
 
     for (let perf of invoice.performances) {
@@ -75,6 +75,10 @@ function printInvoice(invoice, plays) {
     result += `Amount owed is ${usd(totalAmount())}\n`;
     result += `Your earned ${totalVolumeCredits()} credits\n`
     return result;
+}
+
+function printInvoice(invoice, plays) {
+    return renderPlainText(invoice, plays);
 }
 
 console.log(printInvoice(invoices, plays));
