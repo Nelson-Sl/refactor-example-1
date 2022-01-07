@@ -64,8 +64,8 @@ const totalAmount = () => {
     return result;
 }
 
-const renderPlainText = (invoice, plays) => {
-    let result = `Statement for ${invoice.customer}\n`;
+const renderPlainText = (data, invoice, plays) => {
+    let result = `Statement for ${data.customer}\n`;
 
     for (let perf of invoice.performances) {
         // print line for each performance order
@@ -78,7 +78,9 @@ const renderPlainText = (invoice, plays) => {
 }
 
 function printInvoice(invoice, plays) {
-    return renderPlainText(invoice, plays);
+    const statementData = {};
+    statementData.customer = invoice.customer;
+    return renderPlainText(statementData, invoice, plays);
 }
 
 console.log(printInvoice(invoices, plays));
