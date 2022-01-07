@@ -48,20 +48,26 @@ const volumeCreditsFor = (aPerformance) => {
     return result;
 }
 
+const totalVolumeCredits = () => {
+    let volumeCredits = 0;
+    for(let perf of invoices.performances) {
+        volumeCredits += volumeCreditsFor(perf);
+    }
+    return volumeCredits;
+}
+
 function printInvoice(invoice, plays) {
     let totalAmount = 0;
-    let volumeCredits = 0;
     let result = `Statement for ${invoice.customer}\n`;
 
     for (let perf of invoice.performances) {
-        volumeCredits += volumeCreditsFor(perf);
         // print line for each performance order
         result += ` ${playFor(perf).name}: ${usd(amountFor(perf))} (#${perf.audience} seats)\n`;
         totalAmount += amountFor(perf);
     }
 
     result += `Amount owed is ${usd(totalAmount)}\n`;
-    result += `Your earned ${volumeCredits} credits\n`
+    result += `Your earned ${totalVolumeCredits()} credits\n`
     return result;
 }
 
