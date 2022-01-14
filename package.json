@@ -1,12 +1,21 @@
 {
   "name": "refactor-example-1",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nelson-Sl/refactor-example-1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Nelson-Sl/refactor-example-1/issues"
+  },
+  "homepage": "https://github.com/Nelson-Sl/refactor-example-1#readme",
+  "description": ""
 }
