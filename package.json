@@ -1,7 +1,7 @@
 {
   "name": "refactor-example-1",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "statement.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,5 +17,8 @@
     "url": "https://github.com/Nelson-Sl/refactor-example-1/issues"
   },
   "homepage": "https://github.com/Nelson-Sl/refactor-example-1#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  }
 }
