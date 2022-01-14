@@ -9,17 +9,9 @@ const renderPlainText = (data, plays) => {
         result += ` ${perf.play.name}: ${usd(perf.amount)} (#${perf.audience} seats)\n`;
     }
 
-    result += `Amount owed is ${usd(totalAmount())}\n`;
+    result += `Amount owed is ${usd(data.totalAmount)}\n`;
     result += `Your earned ${totalVolumeCredits()} credits\n`
     return result;
-
-    function totalAmount() {
-        let result = 0;
-        for (let perf of data.performances) {
-            result += perf.amount;
-        }
-        return result;
-    }
 
     function totalVolumeCredits() {
         let result = 0;
@@ -43,6 +35,7 @@ function printInvoice(invoice, plays) {
     const statementData = {};
     statementData.customer = invoice.customer;
     statementData.performances = invoice.performances.map(enrichPerformance);
+    statementData.totalAmount = totalAmount(statementData);
     console.log(JSON.stringify(statementData));
     return renderPlainText(statementData, plays);
 
@@ -87,6 +80,14 @@ function printInvoice(invoice, plays) {
         //add extra credit for every ten comedy attendees
         if ('comedy' === aPerformance.play.type) {
             result += Math.floor(aPerformance.audience / 5);
+        }
+        return result;
+    }
+
+    function totalAmount(data) {
+        let result = 0;
+        for (let perf of data.performances) {
+            result += perf.amount;
         }
         return result;
     }
