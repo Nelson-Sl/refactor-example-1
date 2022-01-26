@@ -5,14 +5,7 @@ export class PerformanceCalculator {
     }
 
     getVolumeCredits() {
-        let result = 0;
-        //add volume credits
-        result += Math.max(this.performance.audience - 30, 0);
-        //add extra credit for every ten comedy attendees
-        if ('comedy' === this.play.type) {
-            result += Math.floor(this.performance.audience / 5);
-        }
-        return result;
+        return Math.max(this.performance.audience - 30, 0);
     }
 }
 
@@ -34,5 +27,9 @@ export class ComedyCalculator extends PerformanceCalculator {
         }
         result += 300 * this.performance.audience;
         return result;
+    }
+
+    getVolumeCredits() {
+        return super.getVolumeCredits() + Math.floor(this.performance.audience / 5);
     }
 }
