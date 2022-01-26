@@ -9,8 +9,12 @@ export default function createStatementData(invoices, plays) {
     statementData.totalVolumeCredits = totalVolumeCredits(statementData);
     return statementData;
 
+    function createPerformanceCalculator(aPerformance) {
+        return new PerformanceCalculator(aPerformance, playFor(aPerformance));
+    }
+
     function enrichPerformance(aPerformance) {
-        const calculator = new PerformanceCalculator(aPerformance, playFor(aPerformance));
+        const calculator = createPerformanceCalculator(aPerformance);
         const result = Object.assign({}, aPerformance);
         result.play = playFor(result);
         result.amount = calculator.getAmount();
