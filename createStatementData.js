@@ -1,4 +1,4 @@
-import {PerformanceCalculator} from "./PerformanceCalculator.js";
+import {ComedyCalculator, TragedyCalculator} from "./PerformanceCalculator.js";
 
 export default function createStatementData(invoices, plays) {
     // Statement Data: the structure of data needed in program
@@ -9,12 +9,17 @@ export default function createStatementData(invoices, plays) {
     statementData.totalVolumeCredits = totalVolumeCredits(statementData);
     return statementData;
 
-    function createPerformanceCalculator(aPerformance) {
-        return new PerformanceCalculator(aPerformance, playFor(aPerformance));
+    function createPerformanceCalculator(aPerformance, aPlay) {
+        switch(aPlay.type) {
+            case 'tragedy':
+                return new TragedyCalculator(aPerformance, aPlay);
+            case 'comedy':
+                return new ComedyCalculator(aPerformance, aPlay);
+        }
     }
 
     function enrichPerformance(aPerformance) {
-        const calculator = createPerformanceCalculator(aPerformance);
+        const calculator = createPerformanceCalculator(aPerformance, playFor(aPerformance));
         const result = Object.assign({}, aPerformance);
         result.play = playFor(result);
         result.amount = calculator.getAmount();
