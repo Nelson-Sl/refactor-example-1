@@ -14,23 +14,12 @@ export default function createStatementData(invoices, plays) {
         const result = Object.assign({}, aPerformance);
         result.play = playFor(result);
         result.amount = calculator.getAmount();
-        result.volumeCredits = volumeCreditsFor(result);
+        result.volumeCredits = calculator.getVolumeCredits();
         return result;
     }
 
     function playFor(aPerformance) {
         return plays[aPerformance.playID];
-    }
-
-    function volumeCreditsFor(aPerformance) {
-        let result = 0;
-        //add volume credits
-        result += Math.max(aPerformance.audience - 30, 0);
-        //add extra credit for every ten comedy attendees
-        if ('comedy' === aPerformance.play.type) {
-            result += Math.floor(aPerformance.audience / 5);
-        }
-        return result;
     }
 
     function totalAmount(data) {
